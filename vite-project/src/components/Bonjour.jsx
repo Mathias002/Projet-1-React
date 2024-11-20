@@ -1,10 +1,16 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
-function Bonjour ({name, setName}){
+Bonjour.propTypes = {
+    name: PropTypes.string.isRequired,
+    setName: PropTypes.func.isRequired
+}
+
+function Bonjour({name, setName}) {
     return (
-        <div className='cardName'>
+        <div className="card">
             <h1>Bonjour {name}</h1>
-            <input id='myInput' type="text" name='prenom' onChange={(event) => setName(event.target.value)}/>
+            <input type="text" onChange={(event) => setName(event.target.value)}/>
         </div>
     );
 }

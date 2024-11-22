@@ -1,7 +1,10 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { BookContext } from '../context/BookContext.jsx';
 
 function Home() {
-    const [books, setBooks] = useState([])
+    const { updateFavoriteBook } = useContext(BookContext);
+    const [books, setBooks] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -17,16 +20,24 @@ function Home() {
             }
         };
 
-        fetchData()
-    }, [] )
+        fetchData();
+    }, []);
+
+    const handleClick = (event) => {
+        updateFavoriteBook(event.target.id);
+    };
 
     return (
         <div>
             <h1>Accueil</h1>
             <p>test</p>
             <ul>
-                {books.map(book => (
-                    <li key={book._id}> {book.label}</li>
+                {books.map((book) => (
+                    <li key={book._id}>
+                        <Link to={`/books/${book._id}`} id={book.label} onClick={handleClick}>
+                            {book.label}
+                        </Link>
+                    </li>
                 ))}
             </ul>
         </div>
